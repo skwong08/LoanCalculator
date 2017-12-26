@@ -17,14 +17,14 @@ You’ll need the following values:
 And I have simplified the formula for the calculation.
 
 
-            //Remove comma in the string and convert to Integer
-            NSInteger itemPrice = [[self.txtItemPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-            NSInteger downPayment = [[self.txtDownPayment.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-            
-            //Calculation Formula
-            CGFloat balance = itemPrice - downPayment;
-            CGFloat totalInterest = (rate/100.0) * balance * year;
-            newInstallment = (balance + totalInterest) / (year * 12);
+//Remove comma in the string and convert to Integer
+NSInteger itemPrice = [[self.txtItemPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+NSInteger downPayment = [[self.txtDownPayment.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+
+//Calculation Formula
+CGFloat balance = itemPrice - downPayment;
+CGFloat totalInterest = (rate/100.0) * balance * year;
+newInstallment = (balance + totalInterest) / (year * 12);
             
             
 Hope you are enjoy learning how to build a loan calculator. Thank you.            
