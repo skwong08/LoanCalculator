@@ -58,9 +58,8 @@
 
 - (IBAction)interestRateSliderPressed:(id)sender {
     [self.view endEditing:YES];
-
-    rate = self.interestRateSlider.value;
    
+    rate = [self getSliderValue:self.interestRateSlider];
     self.lblInterestRate.text = [NSString stringWithFormat:@"Interest rate (%.01f %%)",rate];
     
     [self updateInstallmentLabel];
@@ -68,12 +67,25 @@
 
 - (IBAction)loanPeriodPressed:(id)sender {
     [self.view endEditing:YES];
-
-    year = self.loanPeriodSlider.value;
-  
-    self.lblLoanPeriod.text = [NSString stringWithFormat:@"Loan period (%ld Years)",year];
+    
+    year = [self getSliderValue:self.loanPeriodSlider];
+    self.lblLoanPeriod.text = [NSString stringWithFormat:@"Loan period (%ld Years)",(long)year];
     
     [self updateInstallmentLabel];
+}
+
+- (double)getSliderValue:(UISlider *)paramSender{
+    
+    if ([paramSender isEqual:self.interestRateSlider]){
+        paramSender.value = roundf(10 * paramSender.value) / 10.0;
+        [paramSender setValue:paramSender.value animated:NO];
+    }
+    else if ([paramSender isEqual:self.loanPeriodSlider]){
+        int rounded = paramSender.value;
+        [paramSender setValue:rounded animated:NO];
+    }
+    
+    return paramSender.value;
 }
 
 -(void)updateInstallmentLabel{
@@ -95,7 +107,7 @@
     year = 1;
     
     self.lblInterestRate.text = [NSString stringWithFormat:@"Interest rate (%.01f %%)",rate];
-    self.lblLoanPeriod.text = [NSString stringWithFormat:@"Loan period (%ld Years)",year];
+    self.lblLoanPeriod.text = [NSString stringWithFormat:@"Loan period (%ld Years)",(long)year];
     self.lblMontlyInstallment.text = [NSString stringWithFormat:@"RM %.02f",installment];
     
     self.txtItemPrice.text = @"";
@@ -115,18 +127,18 @@
     {
         if (self.txtDownPayment.text.length > 0)
         {
-            NSInteger itemPrice = [self.txtItemPrice.text integerValue];
-            NSInteger downPayment = [self.txtDownPayment.text integerValue];
+            //Remove comma in the string and convert to Integer
+            NSInteger itemPrice = [[self.txtItemPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+            NSInteger downPayment = [[self.txtDownPayment.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
             
             CGFloat balance = itemPrice - downPayment;
-            CGFloat balancePerMonth = balance / (year * 12);
-            newInstallment = balancePerMonth * (1 + (rate/100.0));
+            CGFloat totalInterest = (rate/100.0) * balance * year;
+            newInstallment = (balance + totalInterest) / (year * 12);
         }
     }
     
     return newInstallment;
 }
-
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
