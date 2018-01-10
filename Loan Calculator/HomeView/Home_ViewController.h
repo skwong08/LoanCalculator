@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define ConvertSizeByDensity(A)  (A*SCREEN_MIN_LENGTH/414.0)
+
 @interface Home_ViewController : UIViewController<UITextFieldDelegate>
 {
     CGFloat rate;
@@ -32,8 +38,28 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblMonth;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblNotes;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnReset;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblItemPriceTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *txtItemPriceTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblDownPaymentTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *txtDownPaymentTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblInterestRateTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *interestRateSliderTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblLoanPeriodTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loanPeriodSliderTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblInstallmentTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblMontlyInstallmentTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblNotesTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnResetTopMargin;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblMontlyInstallmentHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblMonthHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lblMonthWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnResetHeight;
+
+
+
 - (IBAction)btnResetDidPressed:(id)sender;
 - (IBAction)interestRateSliderPressed:(id)sender;
 - (IBAction)loanPeriodPressed:(id)sender;

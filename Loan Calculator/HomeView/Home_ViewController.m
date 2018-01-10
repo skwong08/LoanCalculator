@@ -33,6 +33,24 @@
     self.txtItemPrice.keyboardType = UIKeyboardTypeNumberPad;
     self.txtDownPayment.keyboardType = UIKeyboardTypeNumberPad;
 
+    self.lblItemPriceTopMargin.constant = ConvertSizeByDensity(30);
+    self.txtItemPriceTopMargin.constant = ConvertSizeByDensity(15);
+    self.lblDownPaymentTopMargin.constant = ConvertSizeByDensity(25);
+    self.txtDownPaymentTopMargin.constant = ConvertSizeByDensity(15);
+    self.lblInterestRateTopMargin.constant = ConvertSizeByDensity(25);
+    self.interestRateSliderTopMargin.constant = ConvertSizeByDensity(15);
+    self.lblLoanPeriodTopMargin.constant = ConvertSizeByDensity(25);
+    self.loanPeriodSliderTopMargin.constant = ConvertSizeByDensity(15);
+    self.lblInstallmentTopMargin.constant = ConvertSizeByDensity(35);
+    self.lblMontlyInstallmentTopMargin.constant = ConvertSizeByDensity(15);
+    self.lblNotesTopMargin.constant = ConvertSizeByDensity(40);
+    self.btnResetTopMargin.constant = ConvertSizeByDensity(15);
+    
+    self.lblMontlyInstallmentHeight.constant = ConvertSizeByDensity(40);
+    self.lblMonthHeight.constant = ConvertSizeByDensity(30);
+    self.lblMonthWidth.constant = ConvertSizeByDensity(100);
+    self.btnResetHeight.constant = ConvertSizeByDensity(40);
+    
     [self resetView];
 }
 
@@ -131,6 +149,7 @@
             NSInteger itemPrice = [[self.txtItemPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
             NSInteger downPayment = [[self.txtDownPayment.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
             
+            //Calculation Formula
             CGFloat balance = itemPrice - downPayment;
             CGFloat totalInterest = (rate/100.0) * balance * year;
             newInstallment = (balance + totalInterest) / (year * 12);
